@@ -3,13 +3,14 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-        AWS_DEFAULT_REGION = 'us-east-2'
+        AWS_DEFAULT_REGION = "ap-southeast-1'
     }
     stages{
         stage('Checkout SCM'){
             steps{
                 script{
-                    //Generate  using pipeline syntax
+                    //Generated  using pipeline syntax
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/thatdevopsguy77/eks-jenkins-nginx.git']])
                 }
             }
         }
@@ -63,7 +64,7 @@ pipeline {
             steps{
                 script{
                     dir('EKS/configuration-files'){
-                        sh 'aws eks update-kubeconfig --name my-eks-cluster'
+                        sh 'aws eks update-kubeconfig --name my-eks-cluster --region ap-southeast-1'
                         sh 'kubectl apply -f deployment.yml'
                         sh 'kubectl apply -f service.yml'
                     }
