@@ -31,4 +31,6 @@ spec:
             memory: 256Mi
       volumes:
       - name: html-volume
-        mountPath: /usr/share/nginx/html
+        hostPath:
+          path: /usr/share/nginx/html
+          type: Directory
