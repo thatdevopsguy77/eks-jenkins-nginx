@@ -64,9 +64,13 @@ pipeline {
             steps{
                 script{
                     dir('EKS/configuration-files'){
-                        sh 'aws eks update-kubeconfig --name my-eks-cluster --region ap-southeast-1'
-                        sh 'kubectl apply -f deployment.yml'
-                        sh 'kubectl apply -f service.yml'
+                        // Create ConfigMap
+                    sh 'kubectl create configmap nginx-html --from-file=demo.html'
+
+                    // Update kubeconfig and deploy
+                    sh 'aws eks update-kubeconfig --name my-eks-cluster --region ap-southeast-1'
+                    sh 'kubectl apply -f deployment.yml'
+                    sh 'kubectl apply -f service.yml'
                     }
                 }
             }
