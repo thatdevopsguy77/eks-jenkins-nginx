@@ -64,7 +64,7 @@ pipeline {
             steps{
                 script{
                     dir('EKS/configuration-files'){
-                        // Create ConfigMap
+                    // Create ConfigMap
                     sh 'kubectl create configmap nginx-html --from-file=demo.html'
 
                     // Update kubeconfig and deploy
